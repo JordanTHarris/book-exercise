@@ -107,12 +107,27 @@ function createBookCard() {
   bookCard.appendChild(removeButton);
   bookContainer.appendChild(bookCard);
 
-  readCheckbox.addEventListener('change', () => {
+  function updateRead() {
     book.read = readCheckbox.checked;
+    if (book.read) {
+      bookCard.classList.add('checked-color');
+      bookCard.classList.remove('unchecked-color');
+    } else {
+      bookCard.classList.add('unchecked-color');
+      bookCard.classList.remove('checked-color');
+    }
+  }
+
+  updateRead();
+
+  readCheckbox.addEventListener('change', () => {
+    updateRead();
+    console.log(book.info());
   });
 
   removeButton.addEventListener('click', () => {
     myLibrary.splice(book.index, 1);
     bookContainer.removeChild(bookCard);
+    console.log(book.info());
   });
 }
